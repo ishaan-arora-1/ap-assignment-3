@@ -59,4 +59,3 @@ This ensures only one thread can update the shared counter at a time, eliminatin
 - **Visual alert** (red text) when race condition is detected
 - **Fuel management** with refueling capability
 - **Thread control** via Start/Pause buttons
-

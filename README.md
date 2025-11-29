@@ -52,6 +52,24 @@ public static synchronized void addDistance(int distance) {
 
 This ensures only one thread can update the shared counter at a time, eliminating the race condition.
 
+## Design & Control Logic
+
+### Architecture
+
+The system follows a Model-View-Controller (MVC) approach:
+
+- **Model (`Vehicle.java`):** Maintains state (fuel, mileage) and runs the execution logic in a `Runnable` loop.
+- **Shared Resource (`Highway.java`):** A static class containing the critical shared counter.
+- **View/Controller (`FleetSimulatorGUI.java`):** Manages the Swing interface and thread lifecycle.
+
+### Thread Control Mechanism
+
+The GUI controls the independent vehicle threads using shared **volatile boolean flags**:
+
+- **Start/Resume:** Toggles `paused = false`. The thread loop continues execution.
+- **Pause:** Sets `paused = true`. The thread enters a `Thread.sleep()` state within the loop, preserving variables.
+- **Stop:** Sets `running = false`. This breaks the `while(running)` loop, allowing the thread to terminate naturally and safely.
+
 ## Features
 
 - **3 vehicles** running in separate threads

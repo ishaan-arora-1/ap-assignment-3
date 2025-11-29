@@ -56,6 +56,8 @@ public class Vehicle implements Runnable {
                 }
             }
         }
+        // Update status when thread exits
+        this.status = "Stopped";
     }
 
     // --- Control Methods for GUI ---

@@ -72,14 +72,20 @@ public class FleetSimulatorGUI extends JFrame {
 
         JButton btnStart = createStyledButton("Start Simulation");
         JButton btnPause = createStyledButton("Pause");
+        JButton btnStop = createStyledButton("Stop");
         JButton btnRefuel = createStyledButton("Refuel All (+10)");
 
         btnStart.addActionListener(e -> vehicles.forEach(Vehicle::start));
         btnPause.addActionListener(e -> vehicles.forEach(Vehicle::pause));
+        btnStop.addActionListener(e -> vehicles.forEach(Vehicle::stop));
         btnRefuel.addActionListener(e -> vehicles.forEach(v -> v.refuel(10)));
+        
+        // Make Stop button red for visibility
+        btnStop.setForeground(Color.RED);
 
         bottomPanel.add(btnStart);
         bottomPanel.add(btnPause);
+        bottomPanel.add(btnStop);
         bottomPanel.add(btnRefuel);
         add(bottomPanel, BorderLayout.SOUTH);
 

@@ -13,7 +13,7 @@ This Java application demonstrates a multi-threaded race condition using a fleet
 
 ### Compile:
 ```bash
-javac FleetSimulatorMain.java
+javac *.java 
 ```
 
 ### Run:
@@ -23,10 +23,11 @@ java FleetSimulatorMain
 
 ## How to Use
 
-1. Click **"Start All"** to begin the simulation
+1. Click **"Start Simulation"** to begin the simulation
 2. Watch as vehicles run and consume fuel
-3. Click **"Refuel All"** when vehicles run out of fuel
-4. Click **"Pause All"** to pause the simulation
+3. Click **"Pause"** to pause the simulation
+4. Click **"Stop"** to stop all threads completely
+5. Click **"Refuel All (+10)"** when vehicles run out of fuel
 
 ## Observing the Race Condition
 
@@ -56,6 +57,16 @@ This ensures only one thread can update the shared counter at a time, eliminatin
 - **3 vehicles** running in separate threads
 - **Real-time GUI updates** showing vehicle status, fuel, and mileage
 - **Shared counter** demonstrating race condition
-- **Visual alert** (red text) when race condition is detected
+- **Visual alert** (red header) when race condition is detected
 - **Fuel management** with refueling capability
-- **Thread control** via Start/Pause buttons
+- **Thread control** via Start/Pause/Stop buttons
+
+## GUI Thread-Safety Considerations
+
+Java Swing is not thread-safe. To ensure the application remains stable:
+
+1. **Event Dispatch Thread (EDT):** The GUI is initialized using `SwingUtilities.invokeLater`, ensuring that the UI components are created on the EDT.
+
+2. **Safe Updates:** The vehicle threads do not update the UI directly. Instead, a `javax.swing.Timer` is used to poll the vehicle states and update the labels. This ensures that all UI modifications happen on the EDT, preventing `ConcurrentModificationException` or visual artifacts.
+
+3. **Volatile Variables:** The `Vehicle` class uses a `volatile` status field to ensure visibility across threads when the GUI timer reads the vehicle state.

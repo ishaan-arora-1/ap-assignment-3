@@ -39,10 +39,10 @@ This discrepancy demonstrates the **race condition** caused by unsynchronized ac
 
 ## How to Fix the Race Condition
 
-To fix the race condition, make the `addDistance` method in `Highway.java` synchronized:
+To fix the race condition, ive made the `addDistance` method in `Highway.java` synchronized:
 
 ```java
-// Change from:
+// Changed from:
 public static void addDistance(int distance) {
 
 // To:
